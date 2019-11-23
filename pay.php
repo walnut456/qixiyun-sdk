@@ -14,9 +14,7 @@ $config = [
     'notifyUrl' => ''
 ];
 
-/* 在 jsapi 支付的时候需要用户的 openid 来下单，需要提前获取
- * API：[GET] http://pay.k64x.cn/pay/openid
- */
+/* 在 jsapi 支付的时候需要用户的 openid 来下单，需要提前获取，请参考文档 */
 $openId = '';
 
 $pay = new QixiPay( $config['token'] );

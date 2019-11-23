@@ -84,35 +84,6 @@ class QixiPay
             return [false, $err];
         }
     }
-    
-    /**
-     * 回调验证
-     * @param  Closure $callback 
-     * @return string
-     */
-/*    public function check ($callback = null)
-    {
-        $data = $_POST;
-
-        $signData = [];
-        $signData['order_id']     = $data['order_id'];
-        $signData['out_trade_no'] = $data['out_trade_no'];
-        $signData['flow_number']  = $data['flow_number'];
-        $signData['amount']       = $data['amount'];
-        $signData['status']       = $data['status'];
-        $signData['remark']       = $data['remark'];
-        $signData['pay_time']     = $data['pay_time'];
-
-        $sign = $this->makeSign($signData);
-
-        if ($sign !== $data['sign']) {
-            return "error";
-        }
-        if (is_null($callback)) {
-            return "success";
-        }
-        return $callback($data,$sign);
-    }*/
 
     public function verify( $data )
     {
@@ -154,22 +125,6 @@ class QixiPay
         return $sign;
     }
 
-    /**
-     * 创建表单
-     * @param  array $data 
-     * @return mixed
-     */
-/*    public function buildForm($data) {          
-        $sHtml = "<form id='easyPay' name='easyPay' action='".$this->requestUrl."' method='post'>";
-        while (list ($key, $val) = $this->each ($data)) 
-        {
-            $sHtml.= "<input type='hidden' name='".$key."' value='".$val."'/>";
-        }
-        $sHtml.= "</form>";
-        $sHtml.= "<script>document.forms['easyPay'].submit();</script>";
-        
-        return $sHtml;
-    }*/
     /**
      * 循环遍历
      * @param  array &$array 
