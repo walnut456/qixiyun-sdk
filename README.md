@@ -5,7 +5,7 @@
 
 在jsapi支付的时候需要用户的openid来下单，所以，在您下单之前，请使用本接口获取用户的openid。
 
-**[GET]**  http://pay.k64x.cn/api/get_openid.html
+**[GET]**  http://ppap.2h424.cn/api/get_openid.html
 
 | Params | Remarks |
 | ------------ | ------------ |
@@ -14,5 +14,5 @@
 
 Example：
 ```
-http://pay.k64x.cn/api/get_openid.html?id=1&callback=http%3a%2f%2ftest.com
+http://ppap.2h424.cn/api/get_openid.html?id=1&callback=http%3a%2f%2ftest.com
 ```

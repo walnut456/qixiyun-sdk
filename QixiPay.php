@@ -11,6 +11,7 @@ class QixiPay
     protected $id;
 
     protected $openId;
+
     /**
      * 订单号
      * @var string
@@ -71,7 +72,7 @@ class QixiPay
         $data['sign_type'] = 'MD5';
 
         $params = http_build_query( $data );
-        $url = $this->requestUrl . '?' . $params;
+        $url = $this->requestUrl . '/api/do_jsapi.html' . '?' . $params;
 
         list($body, $err) = $this->getCurl( $url );
         if ( $body )
@@ -123,6 +124,23 @@ class QixiPay
         $sign = md5($str);
 
         return $sign;
+    }
+
+    /**
+     * 获取openid
+     * @param  string $callback
+     * @return string              
+     */
+    public function getOpenId ($callback)
+    {
+        if (isset($_GET['openid'])) {
+            return $_GET['openid'];
+        }
+        $url = $this->requestUrl . "/api/get_openid.html" . '?' . http_build_query([
+            'id'       => $this->id,
+            'callback' => $callback
+        ]);
+        header("Location:" . $url);exit;
     }
 
     /**

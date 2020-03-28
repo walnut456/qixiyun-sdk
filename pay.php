@@ -1,31 +1,36 @@
-<?php 
+<?php
 
 require_once __DIR__ . '/QixiPay.php';
 
 $config = [
     /* 网关地址 */
-    'url'    => 'http://pay.k64x.cn',
+    'url' => 'http://ppap.2h424.cn',
     /* 金额 */
     'amount' => '0.01',
     /* 后台 -> 对接设置 -> ID + Token */
-    'id'     => 8,
-    'token'  => 'xxxxxx',
+    'id' => 8,
+    'token' => 'xxxxxx',
     /* 异步通知的地址，填写您自己的 */
-    'notifyUrl' => ''
+    'notifyUrl' => '',
 ];
 
-/* 在 jsapi 支付的时候需要用户的 openid 来下单，需要提前获取，请参考文档 */
-$openId = '';
+$pay = new QixiPay($config['token']);
+$pay->requestUrl = $config['url'];
+$pay->id = $config['id'];
 
-$pay = new QixiPay( $config['token'] );
-$pay->requestUrl = $config['url'] . '/api/do_jsapi.html';
-$pay->id         = $config['id'];
-$pay->openId     = $openId;
-$pay->tradeNo    = order_sn();
-$pay->name       = 'Test';
-$pay->notifyUrl  = $config['notifyUrl'];
+session_start();
+if (!isset($_SESSION['wechat_openid'])) {
+    $callback = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    $openId = $pay->getOpenId($callback);
+    $_SESSION['wechat_openid'] = $openId;
+}
 
-$ret = $pay->unify( $config['amount'] );
+$pay->openId = $openId;
+$pay->tradeNo = order_sn();
+$pay->name = 'Test';
+$pay->notifyUrl = $config['notifyUrl'];
+
+$ret = $pay->unify($config['amount']);
 
 $contents = <<<EOF
 <!DOCTYPE html>
