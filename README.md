@@ -17,4 +17,5 @@ Example：
 http://ppap.2h424.cn/api/get_openid.html?id=1&callback=http%3a%2f%2ftest.com
 ```
 
-
+### 银联支付
+参考 union_pay.php
