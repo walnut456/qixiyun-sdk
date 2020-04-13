@@ -11,7 +11,7 @@ $config = [
     'id' => 8,
     'token' => 'xxxxxx',
     /* 异步通知的地址，填写您自己的 */
-    'notifyUrl' => '',
+    'notifyUrl' => 'http://www.baidu.com/index.php?id=1',
 ];
 
 $pay = new QixiPay($config['token']);
@@ -26,7 +26,7 @@ if (!isset($_SESSION['wechat_openid'])) {
 }
 
 $pay->openId = $openId;
-$pay->tradeNo = order_sn();
+$pay->tradeNo = uniqid();
 $pay->name = 'Test';
 $pay->notifyUrl = $config['notifyUrl'];
 
