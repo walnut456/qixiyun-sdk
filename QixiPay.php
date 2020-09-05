@@ -19,11 +19,20 @@ class QixiPay
     protected $tradeNo;
 
     protected $name;
+
+    protected $mode;
+
     /**
      * 回调地址
      * @var string
      */
     protected $notifyUrl;
+    
+    /**
+     * 同步跳转地址
+     * @var string
+     */
+    protected $returnUrl;
 
     protected $token;
 
@@ -105,6 +114,42 @@ class QixiPay
 
         $params = http_build_query( $data );
         $url = $this->requestUrl . '/api/unionpay.html' . '?' . $params;
+
+        list($body, $err) = $this->getCurl( $url );
+        if ( $body )
+        {
+            $ret = json_decode($body, true);
+            return $ret;
+        }
+        else
+        {
+            return [false, $err];
+        }
+    }
+
+    /**
+     * Call common payment
+     */
+    public function callCommonPay($money = 1)
+    {
+        $data = [];
+        $data['id']           = $this->id;
+        $data['out_trade_no'] = $this->tradeNo;
+        $data['notify_url']   = $this->notifyUrl;
+        $data['name']         = $this->name;
+        $data['money']        = $money;
+        $data['mode']         = $this->mode;
+        if ($this->returnUrl)
+        {
+            $data['return_url'] = $this->returnUrl;
+        }
+        
+        $sign = $this->makeSign($data);
+        $data['sign'] = $sign;
+        $data['sign_type'] = 'MD5';
+
+        $params = http_build_query( $data );
+        $url = $this->requestUrl . '/api/commonpay.html' . '?' . $params;
 
         list($body, $err) = $this->getCurl( $url );
         if ( $body )
