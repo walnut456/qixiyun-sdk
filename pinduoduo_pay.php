@@ -4,7 +4,7 @@ require_once __DIR__ . '/QixiPay.php';
 
 $config = [
     /* 网关地址 */
-    'url' => 'http://ppap.2h424.cn',
+    'url' => 'http://api.zhifubaopay.com',
     /* 支持的金额 1 5 10 15 20 50 */
     'money' => 1,
     /* 后台 -> 对接设置 -> ID + Token */
