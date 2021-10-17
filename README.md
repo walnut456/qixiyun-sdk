@@ -22,3 +22,6 @@ http://ppap.2h424.cn/api/get_openid.html?id=1&callback=http%3a%2f%2ftest.com
 
 ### 拼多多QB支付
 参考 pinduoduo_pay.php
+
+### 油卡支付
+参考 gas_pay.php
